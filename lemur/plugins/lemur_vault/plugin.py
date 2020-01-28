@@ -172,9 +172,9 @@ def create_vault_role(options):
     :param options: Lemur option dictionary
     """
     url = '{}/roles/{}'.format(current_app.config.get('VAULT_PKI_URL'), options['name'])
-	current_app.logger.info('url'+ url)
+    current_app.logger.info('url'+ url)
     params = process_role_options(options)
-	current_app.logger.info('options'+options)
+    current_app.logger.info('options'+options)
 
     res, resp = vault_write_request(url, params)
 
