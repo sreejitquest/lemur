@@ -18,6 +18,7 @@ def vault_write_request(url, data):
     """
     headers = {'X-Vault-Token': vault_auth.get_token()}
     try:
+        current_app.logger.info('*********** url: ' + url)
         if url.split('//')[0].lower() == 'https:':
             verify = current_app.config.get('VAULT_CA')
         else:
