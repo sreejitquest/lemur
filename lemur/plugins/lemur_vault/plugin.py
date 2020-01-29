@@ -180,7 +180,8 @@ def create_vault_role(options):
     current_app.logger.info('url'+ url)
     
     for key in options.keys():
-        current_app.logger.info('options'+ options[key])
+	    current_app.logger.info('options key'+ key)
+        current_app.logger.info('options'+ str(options[key]))
         
     params = process_role_options(options)
     res, resp = vault_write_request(url, params)
