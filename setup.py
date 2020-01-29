@@ -160,6 +160,7 @@ setup(
             'vault_desination = lemur.plugins.lemur_vault_dest.plugin:VaultDestinationPlugin',
             'adcs_issuer = lemur.plugins.lemur_adcs.plugin:ADCSIssuerPlugin',
             'adcs_source = lemur.plugins.lemur_adcs.plugin:ADCSSourcePlugin'
+            'vault_issuer = lemur.plugins.lemur_vault.plugin:VaultIssuerPlugin',
         ],
     },
     classifiers=[
