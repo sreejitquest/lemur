@@ -23,8 +23,12 @@ from setuptools import setup, find_packages
 from subprocess import check_output
 
 import pip
-from pip.download import PipSession
-from pip.req import parse_requirements
+if tuple(map(int, pip.__version__.split('.'))) >= (10, 0, 0):
+    from pip._internal.download import PipSession
+    from pip._internal.req import parse_requirements
+else:
+    from pip.download import PipSession
+    from pip.req import parse_requirements
 
 ROOT = os.path.realpath(os.path.join(os.path.dirname(__file__)))
 
@@ -36,16 +40,16 @@ about = {}
 with open(os.path.join(ROOT, 'lemur', '__about__.py')) as f:
     exec(f.read(), about)  # nosec: about file is benign
 
-install_requires_g = parse_requirements("requirements.txt", session='hack')
+install_requires_g = parse_requirements("requirements.txt", session=PipSession())
 install_requires = [str(ir.req) for ir in install_requires_g]
 
-tests_require_g = parse_requirements("requirements-tests.txt", session='hack')
+tests_require_g = parse_requirements("requirements-tests.txt", session=PipSession())
 tests_require = [str(ir.req) for ir in tests_require_g]
 
-docs_require_g = parse_requirements("requirements-docs.txt", session='hack')
+docs_require_g = parse_requirements("requirements-docs.txt", session=PipSession())
 docs_require = [str(ir.req) for ir in docs_require_g]
 
-dev_requires_g = parse_requirements("requirements-dev.txt", session='hack')
+dev_requires_g = parse_requirements("requirements-dev.txt", session=PipSession())
 dev_requires = [str(ir.req) for ir in dev_requires_g]
 
 
@@ -155,8 +159,7 @@ setup(
             'vault_source = lemur.plugins.lemur_vault_dest.plugin:VaultSourcePlugin',
             'vault_desination = lemur.plugins.lemur_vault_dest.plugin:VaultDestinationPlugin',
             'adcs_issuer = lemur.plugins.lemur_adcs.plugin:ADCSIssuerPlugin',
-            'adcs_source = lemur.plugins.lemur_adcs.plugin:ADCSSourcePlugin',
-            'vault_issuer = lemur.plugins.lemur_vault.plugin:VaultIssuerPlugin',
+            'adcs_source = lemur.plugins.lemur_adcs.plugin:ADCSSourcePlugin'
         ],
     },
     classifiers=[
