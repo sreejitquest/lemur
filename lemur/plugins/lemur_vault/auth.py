@@ -33,6 +33,7 @@ def get_token():
         vault_duration = None
         try:
             auth_type = current_app.config.get('VAULT_AUTH', 'TOKEN')
+            current_app.logger.info('*********** Auth Type: ' + auth_type)
             if auth_type == 'TOKEN':
                 vault_token = current_app.config.get('VAULT_AUTH_TOKEN')
             elif auth_type == 'USERPASS':
@@ -50,6 +51,8 @@ def get_token():
                 raise RuntimeError('Vault: VAULT_AUTH not configured correctly.')
             if vault_duration is not None:
                 vault_token_time = datetime.datetime.now() + datetime.timedelta(seconds=int(vault_duration))
+				
+            current_app.logger.info('*********** TOKEN: ' + vault_token)		
 
         except ConnectionError as ConnError:
             current_app.logger.info('Vault: There was an error while connecting to Vault server.')
