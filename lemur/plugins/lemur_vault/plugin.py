@@ -18,16 +18,11 @@ def vault_write_request(url, data):
     """
     headers = {'X-Vault-Token': vault_auth.get_token()}
     try:
-        current_app.logger.info('************* options ****************')
         if url.split('//')[0].lower() == 'https:':
             verify = current_app.config.get('VAULT_CA')
         else:
             verify = ''
-            
-        current_app.logger.info('************* options Verify ****************' + verify)    
-        current_app.logger.info('************* options url ****************' + url)
-        current_app.logger.info('************* options token ****************' + vault_auth.get_token())
-        
+
         resp = requests.post(url, data=data, headers=headers, verify=verify)
 
         if resp.status_code != 200 and resp.status_code != 204:
@@ -149,9 +144,6 @@ def process_role_options(options):
     if 'key_type' in options:
         vault_params['key_type'] = options['key_type'][:3].lower()
         vault_params['key_bits'] = options['key_type'][-4:]
-        
-    current_app.logger.info('************* options Role key_type****************' + vault_params['key_type'])    
-    current_app.logger.info('************* options Role key_bits****************' + vault_params['key_bits'])
 
     vault_params['key_usage'] = 'KeyAgreement'
     if 'extensions' in options and 'key_usage' in options['extensions']:
@@ -159,8 +151,6 @@ def process_role_options(options):
             vault_params['key_usage'] += ', DigitalSignature'
         if options['extensions']['key_usage'].key_encipherment:
             vault_params['key_usage'] += ', KeyEncipherment'
-            
-    current_app.logger.info('************* options Role key_usage****************' + vault_params['key_usage'])    
 
     ttl = -1
 
@@ -172,9 +162,6 @@ def process_role_options(options):
     if ttl > 0:
         vault_params['ttl'] = str(ttl) + 'h'
         vault_params['max_ttl'] = str(ttl) + 'h'
-        
-    current_app.logger.info('************* options Role ttl****************' + vault_params['ttl'])
-    current_app.logger.info('************* options Role max_ttl****************' + vault_params['max_ttl'])    
 
     return json.dumps(vault_params)
 
@@ -185,11 +172,8 @@ def create_vault_role(options):
     :param options: Lemur option dictionary
     """
     url = '{}/roles/{}'.format(current_app.config.get('VAULT_PKI_URL'), options['name'])
-    current_app.logger.info('************* options Verify Inside Role****************')
-    current_app.logger.info('url'+ url)
-    
     params = process_role_options(options)
-    current_app.logger.info('************* options Verify Role End****************')
+
     res, resp = vault_write_request(url, params)
 
     if res:
