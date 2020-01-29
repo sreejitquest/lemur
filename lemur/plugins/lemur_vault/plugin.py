@@ -18,11 +18,16 @@ def vault_write_request(url, data):
     """
     headers = {'X-Vault-Token': vault_auth.get_token()}
     try:
+        current_app.logger.info('************* options ****************')
         if url.split('//')[0].lower() == 'https:':
             verify = current_app.config.get('VAULT_CA')
         else:
             verify = ''
-
+            
+        current_app.logger.info('************* options Verify ****************' + verify)    
+        current_app.logger.info('************* options url ****************' + url)
+        current_app.logger.info('************* options token ****************' + vault_auth.get_token())
+        
         resp = requests.post(url, data=data, headers=headers, verify=verify)
 
         if resp.status_code != 200 and resp.status_code != 204:
@@ -173,9 +178,11 @@ def create_vault_role(options):
     """
     url = '{}/roles/{}'.format(current_app.config.get('VAULT_PKI_URL'), options['name'])
     current_app.logger.info('url'+ url)
+    
+    for key in options.keys():
+        current_app.logger.info('options'+d[key])
+        
     params = process_role_options(options)
-    current_app.logger.info('options'+options)
-
     res, resp = vault_write_request(url, params)
 
     if res:
