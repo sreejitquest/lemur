@@ -51,6 +51,7 @@ def parse_certificate(body):
     :param body:
     :return:
     """
+    print("Certificate QuEST log start")
     assert isinstance(body, str)
     print("Certificate QuEST log")
     print(body)
