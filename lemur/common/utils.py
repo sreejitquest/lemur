@@ -54,7 +54,7 @@ def parse_certificate(body):
     assert isinstance(body, str)
     print("Certificate QuEST log")
     print(body)
-	return x509.load_pem_x509_certificate(body, default_backend())
+    return x509.load_pem_x509_certificate(body, default_backend())
 
 
 def parse_private_key(private_key):
