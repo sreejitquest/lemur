@@ -51,12 +51,10 @@ def parse_certificate(body):
     :param body:
     :return:
     """
-    print("Certificate QuEST log start")
     assert isinstance(body, str)
     print("Certificate QuEST log")
     print(body)
-    print(body.encode("utf-8"))
-    return x509.load_pem_x509_certificate(body.encode("utf-8"), default_backend())
+	return x509.load_pem_x509_certificate(body, default_backend())
 
 
 def parse_private_key(private_key):
