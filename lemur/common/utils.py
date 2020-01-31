@@ -9,8 +9,6 @@
 import random
 import re
 import string
-import sys
-import codecs
 
 import sqlalchemy
 from cryptography import x509

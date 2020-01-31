@@ -266,8 +266,6 @@ class Certificate(db.Model):
     @cached_property
     def parsed_cert(self):
         assert self.body, "Certificate body not set"
-        print("Quest certificate log 01")
-        print(self.body)
         return utils.parse_certificate(self.body)
 
     @property
