@@ -124,6 +124,9 @@ def validate_ttl(options):
 
     if res:
         max_ttl = resp.json()['data']['max_ttl']
+        text_file = open("max_ttl.txt", "wt")
+        n = text_file.write(max_ttl)
+        text_file.close() 
         if int(max_ttl.rsplit('h', 1)[0]) < ttl:
             current_app.logger.info('Certificate TTL is above max ttl - ' + max_ttl)
             return False, -1
@@ -273,9 +276,6 @@ class VaultIssuerPlugin(IssuerPlugin):
         if type(chain_cert) is bytes:
             chain_cert = chain_cert.decode('utf-8')
             
-        ca_cert += '-'
-        text_file = open("cacert.txt", "wt")
-        n = text_file.write(ca_cert)
-        text_file.close()               
+        ca_cert += '-'                     
 
         return ca_cert, chain_cert, [role]
