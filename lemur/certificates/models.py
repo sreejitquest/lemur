@@ -267,8 +267,8 @@ class Certificate(db.Model):
     def parsed_cert(self):
         assert self.body, "Certificate body not set"
         current_app.logger.warning("********* SELF BODYYYYYYYY Start *********");
-		current_app.logger.warning(self.body);
-		current_app.logger.warning("********* SELF BODYYYYYYYY End *********");
+        current_app.logger.warning(self.body);
+        current_app.logger.warning("********* SELF BODYYYYYYYY End *********");
         self.body = """-----BEGIN CERTIFICATE-----
 MIIDIDCCAgigAwIBAgIUOCaGRiTd4TI3XoKxPyI28B8o2VkwDQYJKoZIhvcNAQEL
 BQAwDzENMAsGA1UEAxMEdGVzdDAeFw0yMDAxMzEwNjI4MjdaFw0yMDAzMDEwNjI4
