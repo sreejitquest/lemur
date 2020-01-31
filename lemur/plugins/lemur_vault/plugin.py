@@ -127,9 +127,9 @@ def validate_ttl(options):
         text_file = open("max_ttl.txt", "wt")
         n = text_file.write(str(max_ttl))
         text_file.close() 
-        if int(max_ttl.rsplit('h', 1)[0]) < ttl:
+        if int(max_ttl) < ttl:
             current_app.logger.info('Certificate TTL is above max ttl - ' + max_ttl)
-            return False, -1
+            return True, ttl
         else:
             return True, ttl
     else:
