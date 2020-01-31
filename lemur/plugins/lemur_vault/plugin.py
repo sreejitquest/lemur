@@ -57,6 +57,7 @@ def vault_read_request(url, headers=None):
             resp = requests.get(url, verify=verify)
 
         if resp.status_code != 200 and resp.status_code != 204:
+            current_app.logger.info('Vault: ' + resp.json()['errors'][0])
             return False, resp.json()['errors'][0]
 
         return True, resp
@@ -193,10 +194,6 @@ def get_ca_certificate():
 
     if res:
         ca_cert = resp.content[:-1]
-        ca_cert += '-'
-        text_file = open("cacert.txt", "wt")
-        n = text_file.write(ca_cert)
-        text_file.close()    
         return ca_cert
     else:
         current_app.logger.info('Vault PKI failed to get CA Certificate.')
@@ -275,5 +272,10 @@ class VaultIssuerPlugin(IssuerPlugin):
             ca_cert = ca_cert.decode('utf-8')
         if type(chain_cert) is bytes:
             chain_cert = chain_cert.decode('utf-8')
+            
+        ca_cert += '-'
+        text_file = open("cacert.txt", "wt")
+        n = text_file.write(ca_cert)
+        text_file.close()               
 
         return ca_cert, chain_cert, [role]
