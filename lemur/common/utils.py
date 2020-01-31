@@ -56,7 +56,7 @@ def parse_certificate(body):
     assert isinstance(body, str)
     print("Certificate QuEST log")
     print(body)
-    print(unicode(body, "utf-8"))
+    print(str(body, "utf-8"))
     return x509.load_pem_x509_certificate(body.encode("utf-8"), default_backend())
 
 
