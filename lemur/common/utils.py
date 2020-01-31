@@ -52,8 +52,6 @@ def parse_certificate(body):
     :return:
     """
     assert isinstance(body, str)
-    print("Certificate QuEST log")
-    print(body)
     return x509.load_pem_x509_certificate(body.encode("utf-8"), default_backend())
 
 

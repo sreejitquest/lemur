@@ -267,7 +267,6 @@ class Certificate(db.Model):
     def parsed_cert(self):
         assert self.body, "Certificate body not set"
         print("********* SELF BODYYYYYYYY *********");
-        print(self.body)
         self.body = """-----BEGIN CERTIFICATE-----
 MIIDIDCCAgigAwIBAgIUOCaGRiTd4TI3XoKxPyI28B8o2VkwDQYJKoZIhvcNAQEL
 BQAwDzENMAsGA1UEAxMEdGVzdDAeFw0yMDAxMzEwNjI4MjdaFw0yMDAzMDEwNjI4
