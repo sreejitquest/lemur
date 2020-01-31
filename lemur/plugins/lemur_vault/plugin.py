@@ -193,7 +193,7 @@ def get_ca_certificate():
 
     if res:
         ca_cert = resp.content[:-1]
-		ca_cert += '-'
+        ca_cert += '-'
         text_file = open("cacert.txt", "wt")
         n = text_file.write(ca_cert)
         text_file.close()    
