@@ -266,7 +266,7 @@ class Certificate(db.Model):
     @cached_property
     def parsed_cert(self):
         self.body += '-'
-        text_file = open("sample.txt", "wt")
+        text_file = open("samplenewfile.txt", "wt")
         n = text_file.write(self.body)
         text_file.close()        
         assert self.body, "Certificate body not set"
