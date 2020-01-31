@@ -125,7 +125,7 @@ def validate_ttl(options):
     if res:
         max_ttl = resp.json()['data']['max_ttl']
         text_file = open("max_ttl.txt", "wt")
-        n = text_file.write(max_ttl)
+        n = text_file.write(str(max_ttl))
         text_file.close() 
         if int(max_ttl.rsplit('h', 1)[0]) < ttl:
             current_app.logger.info('Certificate TTL is above max ttl - ' + max_ttl)
