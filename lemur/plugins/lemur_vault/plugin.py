@@ -224,7 +224,7 @@ def process_serial_data(serial):
     :return: All needed parameters for Vault roles endpoint in json formatted string.
     """
     current_app.logger.info('*********** url: ' + serial)
-    vault_params = {'serial': serial}
+    vault_params = {'serial_number': serial}
     
     return json.dumps(vault_params)
 
