@@ -263,7 +263,7 @@ class VaultIssuerPlugin(IssuerPlugin):
     
     def revoke_certificate(self, certificate, comments):
         """Revoke a Vault certificate."""
-        url = '{}/revoke/'.format(current_app.config.get('VAULT_PKI_URL'))
+        url = '{}/revoke'.format(current_app.config.get('VAULT_PKI_URL'))
         data = (
             '{"serial": "'
             + certificate.external_id    
