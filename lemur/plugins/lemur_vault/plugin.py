@@ -280,7 +280,7 @@ class VaultIssuerPlugin(IssuerPlugin):
         serialId = '-'.join(serialNum[i:i + 2] for i in range(0, len(serialNum), 2)) 
         current_app.logger.info('*********** serialId: ' + serialId)
         params = process_serial_data(serialId)
-        res, resp = vault_write_request(url, data)
+        res, resp = vault_write_request(url, params)
  
         if res:
             current_app.logger.info('Vaule PKI Revoked successfully.')
