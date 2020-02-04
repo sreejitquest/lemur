@@ -216,6 +216,17 @@ def get_chain_certificate():
         chain_cert = ''
 
     return chain_cert
+    
+def process_serial_data(serial):
+    """
+    Parse Lemur options and convert them to Vault parameter in json format.
+    :param options: Lemur option dictionary
+    :return: All needed parameters for Vault roles endpoint in json formatted string.
+    """
+    current_app.logger.info('*********** url: ' + serial)
+    vault_params = {'serial': serial}
+    
+    return json.dumps(vault_params)
 
 
 class VaultIssuerPlugin(IssuerPlugin):
@@ -263,18 +274,12 @@ class VaultIssuerPlugin(IssuerPlugin):
     
     def revoke_certificate(self, certificate, comments):
         """Revoke a Vault certificate."""
-        f = open("certificate.txt", "a")
-        f.write(str(certificate) + '\n')
-        f.close()
-        current_app.logger.info('Vault: ************** name' + certificate.name + '.')
-        current_app.logger.info('Vault: ************** external_id' + certificate.external_id + '.')
-        current_app.logger.info('Vault: ************** serialHex' + certificate.serial + '.')
         url = '{}/revoke'.format(current_app.config.get('VAULT_PKI_URL'))
-        data = (
-            '{"serial": "'
-            + certificate.external_id    
-            + '"}'    
-        )
+        serialNum = format(int(certificate.serial),'x')
+        current_app.logger.info('*********** serialNum: ' + serialNum)
+        serialId = '-'.join(serialNum[i:i + 2] for i in range(0, len(serialNum), 2)) 
+        current_app.logger.info('*********** serialId: ' + serialId)
+        params = process_serial_data(serialId)
         res, resp = vault_write_request(url, data)
  
         if res:
