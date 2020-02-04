@@ -268,7 +268,7 @@ class VaultIssuerPlugin(IssuerPlugin):
         f.close()
         current_app.logger.info('Vault: ************** name' + certificate.name + '.')
         current_app.logger.info('Vault: ************** external_id' + certificate.external_id + '.')
-        current_app.logger.info('Vault: ************** serialHex' + certificate.serialHex + '.')
+        current_app.logger.info('Vault: ************** serialHex' + certificate.serial + '.')
         url = '{}/revoke'.format(current_app.config.get('VAULT_PKI_URL'))
         data = (
             '{"serial": "'

@@ -1332,7 +1332,7 @@ class CertificateRevoke(AuthenticatedResource):
             )
             
         f = open("certificatelemur.txt", "a")
-        f.write(str(cert) + '\n')
+        f.write(str(cert.external_id) + '\n')
         f.close()    
 
         plugin = plugins.get(cert.authority.plugin_name)
