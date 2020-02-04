@@ -266,7 +266,8 @@ class VaultIssuerPlugin(IssuerPlugin):
         url = '{}/revoke/'.format(current_app.config.get('VAULT_PKI_URL'))
         data = (
             '{"serial": "'
-            + certificate.external_id            
+            + certificate.external_id    
+            + '"}'    
         )
         res, resp = vault_write_request(url, data)
  
