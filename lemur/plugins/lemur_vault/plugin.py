@@ -185,7 +185,21 @@ def create_vault_role(options):
     else:
         current_app.logger.info('Vaule PKI Failed to create role.')
         raise Exception('Vault error' + resp)
-
+        
+def revoke_certificate(self, certificate, comments):
+        """Revoke a Vault certificate."""
+        url = '{}/revoke/'.format(current_app.config.get('VAULT_PKI_URL'))
+        data = (
+            '{"serial": "'
+            + certificate.external_id            
+        )
+        res, resp = vault_write_request(url, data)
+ 
+        if res:
+            current_app.logger.info('Vaule PKI role created successfully.')
+        else:
+            current_app.logger.info('Vaule PKI Failed to create role.')
+            raise Exception('Vault error' + resp)
 
 def get_ca_certificate():
     """
