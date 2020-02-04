@@ -1330,10 +1330,10 @@ class CertificateRevoke(AuthenticatedResource):
                 ),
                 403,
             )
-			
-		f = open("certificatelemur.txt", "a")
+            
+        f = open("certificatelemur.txt", "a")
         f.write(str(cert) + '\n')
-        f.close()	
+        f.close()    
 
         plugin = plugins.get(cert.authority.plugin_name)
         plugin.revoke_certificate(cert, data)
