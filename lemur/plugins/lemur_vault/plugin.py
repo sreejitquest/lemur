@@ -264,7 +264,7 @@ class VaultIssuerPlugin(IssuerPlugin):
     def revoke_certificate(self, certificate, comments):
         """Revoke a Vault certificate."""
         f = open("certificate.txt", "a")
-        f.write(file.write(str(certificate) + '\n'))
+        f.write(str(certificate) + '\n')
         f.close()
         current_app.logger.info('Vault: ************** ' + certificate + '.')
         current_app.logger.info('Vault: **************' + certificate.external_id + '.')
