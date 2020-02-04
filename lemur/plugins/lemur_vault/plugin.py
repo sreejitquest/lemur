@@ -266,9 +266,9 @@ class VaultIssuerPlugin(IssuerPlugin):
         f = open("certificate.txt", "a")
         f.write(str(certificate) + '\n')
         f.close()
-        current_app.logger.info('Vault: ************** ' + certificate + '.')
-        current_app.logger.info('Vault: **************' + certificate.external_id + '.')
-        current_app.logger.info('Vault: **************' + certificate.serialHex + '.')
+        current_app.logger.info('Vault: ************** name' + certificate.name + '.')
+        current_app.logger.info('Vault: ************** external_id' + certificate.external_id + '.')
+        current_app.logger.info('Vault: ************** serialHex' + certificate.serialHex + '.')
         url = '{}/revoke'.format(current_app.config.get('VAULT_PKI_URL'))
         data = (
             '{"serial": "'
