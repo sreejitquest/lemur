@@ -6,6 +6,7 @@ from flask import current_app
 from requests import ConnectionError
 from lemur.plugins.bases.issuer import IssuerPlugin
 from lemur.plugins.lemur_vault import auth as vault_auth, VERSION as VAULT_PLUGIN_VER
+from lemur.extensions import metrics
 
 
 def vault_write_request(url, data):
