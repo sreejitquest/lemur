@@ -286,7 +286,9 @@ class VaultIssuerPlugin(IssuerPlugin):
             current_app.logger.info('Vaule PKI Revoked successfully.')
         else:
             current_app.logger.info('Vaule PKI Failed to Revoke.')
-            raise Exception('Vault error' + resp)    
+            raise Exception('Vault error' + resp)
+        metrics.send("vault_revoke_certificate_success", "counter", 1)    
+        return resp.json()            
 
     @staticmethod
     def create_authority(options):
